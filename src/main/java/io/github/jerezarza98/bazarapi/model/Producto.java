@@ -21,4 +21,11 @@ public class Producto {
     private String marca;
     private Double precio;
     private int stock;
+
+    public Producto(String nombre, String marca, Double precio, int stock) {
+        this.nombre = nombre;
+        this.marca = marca;
+        this.precio = precio;
+        this.stock = stock;
+    }
 }
