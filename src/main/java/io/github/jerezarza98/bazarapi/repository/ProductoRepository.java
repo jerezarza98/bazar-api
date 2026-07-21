@@ -1,4 +1,9 @@
 package io.github.jerezarza98.bazarapi.repository;
 
-public interface ProductoRepository {
+import io.github.jerezarza98.bazarapi.model.Producto;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
 }
