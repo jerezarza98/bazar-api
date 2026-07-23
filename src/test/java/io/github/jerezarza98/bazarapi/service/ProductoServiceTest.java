@@ -111,6 +111,26 @@ public class ProductoServiceTest {
         assertThrows(ProductoNoEncontradoException.class, () -> productoService.actualizarProducto(id+1, productoAActualizar));
     }
 
+    @Test
+    void recuperarProductosPorIdsCuandoNoExisteNingunProductoDevuelveUnaListaVaciaTest() {
+        List<Long> ids = productoService.recuperarTodosLosProductos().stream().map(Producto::getId).toList();
+
+        assertTrue(productoService.recuperarProductos(ids).isEmpty());
+    }
+
+    @Test
+    void recuperarProductosPorIdsCuandoExisteProductosDevuelveUnaListaDeProductosTest() {
+        Producto productoCreado = productoService.crearProducto(producto);
+        Producto otroProductoCreado = productoService.crearProducto(new Producto("Auriculares Inalámbricos X200", "TechWave", 79.99, 25));
+
+        List<Producto> productos = productoService.recuperarProductos(List.of(otroProductoCreado.getId()));
+
+        assertFalse(productos.isEmpty());
+        assertEquals(1, productos.size());
+        assertTrue(productos.contains(otroProductoCreado));
+        assertFalse(productos.contains(productoCreado));
+    }
+
     @AfterEach
     void tearDown() {
         productoService.eliminarTodosLosProductos();
