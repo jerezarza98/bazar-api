@@ -11,4 +11,5 @@ public interface ProductoService {
     void eliminarProducto(Long id);
     void actualizarProducto(Long id, Producto producto);
     void eliminarTodosLosProductos();
+    List<Producto> recuperarProductos(List<Long> ids);
 }

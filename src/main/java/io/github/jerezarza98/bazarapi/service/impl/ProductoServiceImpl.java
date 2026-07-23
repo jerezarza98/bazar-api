@@ -54,4 +54,9 @@ public class ProductoServiceImpl implements ProductoService {
     public void eliminarTodosLosProductos() {
         productoRepository.deleteAll();
     }
+
+    @Override
+    public List<Producto> recuperarProductos(List<Long> ids) {
+        return productoRepository.findAllById(ids);
+    }
 }
