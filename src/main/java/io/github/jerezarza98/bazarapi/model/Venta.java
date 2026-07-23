@@ -25,4 +25,12 @@ public class Venta {
 
     @ManyToOne
     private Cliente cliente;
+
+    public Venta(LocalDate fechaVenta, List<Producto> productos, Cliente cliente) {
+        this.fechaVenta = fechaVenta;
+        this.productos = productos;
+        this.cliente = cliente;
+        this.total = productos.stream().mapToDouble(Producto::getPrecio).sum();
+    }
+
 }
