@@ -1,5 +1,6 @@
 package io.github.jerezarza98.bazarapi.model;
 
+import io.github.jerezarza98.bazarapi.exception.ProductoSinStockException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,5 +28,16 @@ public class Producto {
         this.marca = marca;
         this.precio = precio;
         this.stock = stock;
+    }
+
+    public void descontarStock() {
+        if(this.stock == 0) {
+            throw new ProductoSinStockException();
+        }
+        this.stock--;
+    }
+
+    public void aumentarStock() {
+        this.stock++;
     }
 }
