@@ -65,4 +65,9 @@ public class ProductoServiceImpl implements ProductoService {
         }
         return productos;
     }
+
+    @Override
+    public List<Producto> recuperarProductosConFaltaDeStock() {
+        return productoRepository.productosConFaltaDeStock();
+    }
 }
