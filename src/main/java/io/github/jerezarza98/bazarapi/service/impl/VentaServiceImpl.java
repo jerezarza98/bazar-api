@@ -1,6 +1,7 @@
 package io.github.jerezarza98.bazarapi.service.impl;
 
 import io.github.jerezarza98.bazarapi.exception.VentaNoEncontradoException;
+import io.github.jerezarza98.bazarapi.exception.VentaSinProductosException;
 import io.github.jerezarza98.bazarapi.model.Producto;
 import io.github.jerezarza98.bazarapi.model.Venta;
 import io.github.jerezarza98.bazarapi.repository.ProductoRepository;
@@ -22,6 +23,10 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     public Venta crearVenta(Venta venta) {
+        if(venta.getProductos().isEmpty()) {
+            throw new VentaSinProductosException();
+        }
+
         descontarStockDeProductos(venta);
 
         return ventaRepository.save(venta);
