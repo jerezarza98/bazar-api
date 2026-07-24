@@ -139,6 +139,23 @@ public class ProductoServiceTest {
         assertThrows(ProductoNoEncontradoException.class, () -> productoService.recuperarProductos(List.of(id+1)));
     }
 
+    @Test
+    void recuperarProductosConFaltaDeStockCuandoNoHayNingunProductoConFaltaDeStockDevuelveUnaListaVaciaTest() {
+        assertTrue(productoService.recuperarProductosConFaltaDeStock().isEmpty());
+    }
+
+    @Test
+    void recuperarProductosConFaltaDeStockCuandoHayProductosConFaltaDeStockDevuelveUnaListaDeProductosTest() {
+        producto.setStock(4);
+        Producto productoCreado = productoService.crearProducto(producto);
+
+        List<Producto> productos = productoService.recuperarProductosConFaltaDeStock();
+
+        assertFalse(productos.isEmpty());
+        assertEquals(1, productos.size());
+        assertTrue(productos.contains(productoCreado));
+    }
+
     @AfterEach
     void tearDown() {
         productoService.eliminarTodosLosProductos();
