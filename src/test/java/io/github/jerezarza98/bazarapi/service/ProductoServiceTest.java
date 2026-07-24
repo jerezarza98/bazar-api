@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -113,7 +114,7 @@ public class ProductoServiceTest {
 
     @Test
     void recuperarProductosPorIdsCuandoNoExisteNingunProductoDevuelveUnaListaVaciaTest() {
-        List<Long> ids = productoService.recuperarTodosLosProductos().stream().map(Producto::getId).toList();
+        List<Long> ids = new ArrayList<>();
 
         assertTrue(productoService.recuperarProductos(ids).isEmpty());
     }
@@ -129,6 +130,13 @@ public class ProductoServiceTest {
         assertEquals(1, productos.size());
         assertTrue(productos.contains(otroProductoCreado));
         assertFalse(productos.contains(productoCreado));
+    }
+
+    @Test
+    void recuperarProductosPorIdsCuandoNoExisteAlgunProductoLanzaProductoNoEncontradoExceptionTest() {
+        Long id = productoService.crearProducto(producto).getId();
+
+        assertThrows(ProductoNoEncontradoException.class, () -> productoService.recuperarProductos(List.of(id+1)));
     }
 
     @AfterEach
