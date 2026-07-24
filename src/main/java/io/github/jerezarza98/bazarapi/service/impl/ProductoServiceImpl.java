@@ -7,6 +7,7 @@ import io.github.jerezarza98.bazarapi.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,6 +58,11 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public List<Producto> recuperarProductos(List<Long> ids) {
-        return productoRepository.findAllById(ids);
+        List<Producto> productos = new ArrayList<>();
+        for(Long id : ids) {
+            Producto producto = recuperarProducto(id);
+            productos.add(producto);
+        }
+        return productos;
     }
 }
