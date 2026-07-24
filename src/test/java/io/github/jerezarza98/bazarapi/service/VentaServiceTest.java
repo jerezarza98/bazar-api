@@ -152,6 +152,16 @@ public class VentaServiceTest {
         );
     }
 
+    @Test
+    void recuperarProductosDeVentaDevuelveUnaListaDeProductosTest() {
+        Long id = ventaService.crearVenta(venta).getId();
+
+        List<Producto> productos = ventaService.recuperarProductosDeVenta(id);
+
+        assertTrue(productos.containsAll(List.of(unProducto, otroProducto)));
+        assertEquals(2, productos.size());
+    }
+
     @AfterEach
     void tearDown() {
         ventaService.eliminarTodasLasVentas();
