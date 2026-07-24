@@ -62,7 +62,7 @@ public class VentaServiceImpl implements VentaService {
         descontarStockDeProductos(venta);
         ventaRecuperado.setProductos(venta.getProductos());
 
-        ventaRepository.save(venta);
+        ventaRepository.save(ventaRecuperado);
     }
 
     @Override
