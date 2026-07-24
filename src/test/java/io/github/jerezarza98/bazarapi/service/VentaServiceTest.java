@@ -2,6 +2,7 @@ package io.github.jerezarza98.bazarapi.service;
 
 import io.github.jerezarza98.bazarapi.exception.ProductoSinStockException;
 import io.github.jerezarza98.bazarapi.exception.VentaNoEncontradoException;
+import io.github.jerezarza98.bazarapi.exception.VentaSinProductosException;
 import io.github.jerezarza98.bazarapi.model.Cliente;
 import io.github.jerezarza98.bazarapi.model.Producto;
 import io.github.jerezarza98.bazarapi.model.Venta;
@@ -56,6 +57,13 @@ public class VentaServiceTest {
         assertNull(venta.getId());
         ventaService.crearVenta(venta);
         assertNotNull(venta.getId());
+    }
+
+    @Test
+    void crearVentaCuandoNoTieneNingunProductoLanzaVentaSinProductosExceptionTest() {
+        venta.setProductos(new ArrayList<>());
+
+        assertThrows(VentaSinProductosException.class, () -> ventaService.crearVenta(venta));
     }
 
     @Test
