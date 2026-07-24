@@ -75,6 +75,12 @@ public class VentaServiceImpl implements VentaService {
         ventaRepository.deleteAll();
     }
 
+    @Override
+    public List<Producto> recuperarProductosDeVenta(Long id) {
+        Venta venta = recuperarVenta(id);
+        return venta.getProductos();
+    }
+
     private void descontarStockDeProductos(Venta venta) {
         for(Producto producto:venta.getProductos()) {
             producto.descontarStock();
